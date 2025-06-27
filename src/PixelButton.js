@@ -1,28 +1,33 @@
-export default function PixelButton({ children, onClick }) {
+import React from "react";
+
+export default function PixelButton({ children, onClick, theme }) {
   const handleClick = () => {
     if (onClick) onClick();
+  };
+
+  const buttonStyle = {
+    width: "50px",
+    height: "50px",
+    backgroundImage: `url(${theme.buttonImage})`,
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    border: "none",
+    color: theme.fontColor || "#fff",
+    fontFamily: theme.fontFamily || "sans-serif",
+    fontSize: "1.5rem",
+    textAlign: "center",
+    cursor: "pointer",
+    padding: 0,
+    margin: "0.5rem",
+    outline: "none",
+    imageRendering: "pixelated"
   };
 
   return (
     <button
       onClick={handleClick}
-      style={{
-        backgroundColor: "var(--buttonBg)",
-        border: "4px solid var(--buttonBorder)",
-        color: "var(--fontColor)",
-        fontFamily: "var(--fontFamily)",
-        padding: "0.04rem 0.5rem",
-        margin: "0.5rem",
-        cursor: "pointer",
-        borderRadius: "0px",
-        boxShadow: "0 4px #999",
-        fontSize: "1.75rem",
-        transition: "all 0.2s ease"
-      }}
-      onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-      onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1.0)")}
-      onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
-      onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+      style={buttonStyle}
     >
       {children}
     </button>

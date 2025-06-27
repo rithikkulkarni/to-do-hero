@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PixelButton from "./PixelButton";
+import theme from "./theme"; // <-- Import the default theme
 
 export default function TodoList() {
   const [duration, setDuration] = useState("15");
@@ -105,7 +106,11 @@ export default function TodoList() {
           <option value="45">45 minutes</option>
           <option value="60">1 hour</option>
         </select>
-        <PixelButton onClick={addTask}>+</PixelButton>
+        <PixelButton
+          onClick={addTask}
+          theme={theme} // <-- Pass the imported theme here
+          style={{ width: "48px", height: "48px", imageRendering: "pixelated" }}
+        ></PixelButton>
       </div>
       <ul style={{ padding: 0, listStyle: "none" }}>
         {tasks.map((task, index) => {
