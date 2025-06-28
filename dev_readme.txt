@@ -1,6 +1,10 @@
 **DEV README**
 
 Welcome! If you are a dev working on this react app, you're in the right place.
+To get started with this react app, run the following command to install the npm dependency:
+
+    npm install
+
 To start a live server so you can view your changes on localhost in real time, run "npm start" in your powershell/VS terminal.
 If you run into a "scripts disabled" error when trying to run commands like npm start, run the following command to bypass the script execution policy on just that terminal session:
 

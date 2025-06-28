@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import PixelButton from "./PixelButton";
-import theme from "./theme"; // <-- Import the default theme
+import React, { useState, useEffect, useState as useButtonState } from "react";
+import theme from "./theme";
 
 export default function TodoList() {
   const [duration, setDuration] = useState("15");
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
+  const [buttonState, setButtonState] = useButtonState("still");
 
   const addTask = () => {
     if (input.trim() && duration) {
@@ -43,6 +43,17 @@ export default function TodoList() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const getButtonImage = () => {
+    switch (buttonState) {
+      case "pressed":
+        return "themes/default/add-button-full-pressed.png";
+      case "half":
+        return "themes/default/add-button-half-pressed.png";
+      default:
+        return "themes/default/add-button-unpressed.png";
+    }
+  };
 
   return (
     <div
@@ -106,11 +117,25 @@ export default function TodoList() {
           <option value="45">45 minutes</option>
           <option value="60">1 hour</option>
         </select>
-        <PixelButton
+        <button
           onClick={addTask}
-          theme={theme} // <-- Pass the imported theme here
-          style={{ width: "48px", height: "48px", imageRendering: "pixelated" }}
-        ></PixelButton>
+          onMouseDown={() => setButtonState("half")}
+          onMouseUp={() => {
+            setButtonState("pressed");
+            setTimeout(() => setButtonState("still"), 150);
+          }}
+          style={{
+            width: "48px",
+            height: "39px",
+            backgroundImage: `url(${getButtonImage()})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            imageRendering: "pixelated",
+            border: "none",
+            cursor: "pointer"
+          }}
+        ></button>
       </div>
       <ul style={{ padding: 0, listStyle: "none" }}>
         {tasks.map((task, index) => {
